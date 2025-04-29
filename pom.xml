@@ -27,7 +27,7 @@
     </parent>
 
     <dependencies>
-        !-- Spring Boot Starter Web -->
+        <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -60,6 +60,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.courtcast.CourtcastBackendApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
