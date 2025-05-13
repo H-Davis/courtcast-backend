@@ -4,6 +4,8 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.cache.annotation.Cacheable;
+
 
 /**
  * File created by Hananiah Davis on May 03, 2025
@@ -25,6 +27,7 @@ public class NbaService {
                 .build();
     }
 
+    @Cacheable(value = "gameByDateCache", key = "#date")
     public Object getGamesByDate(String date) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -36,4 +39,17 @@ public class NbaService {
                 .bodyToMono(Object.class)
                 .block();
     }
+
+    @Cacheable(value = "gameStatsCache", key = "#gameId")
+    public Object getGameStats(String gameId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/players/statistics")
+                        .queryParam("game", gameId)
+                        .build())
+                .retrieve()
+                .bodyToMono(Object.class)
+                .block();
+    }
+
 }
