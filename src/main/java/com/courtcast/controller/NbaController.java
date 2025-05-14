@@ -20,7 +20,6 @@ public class NbaController {
 
     @GetMapping("/games")
     public ResponseEntity<?> getGamesByDate(@RequestParam String date) {
-        System.out.println("Received date: " + date);
         return ResponseEntity.ok(nbaService.getGamesByDate(date));
     }
 
@@ -28,6 +27,11 @@ public class NbaController {
     public ResponseEntity<Object> getPlayerStats(@RequestParam("game") String gameId) {
         Object stats = nbaService.getGameStats(gameId);
         return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/players")
+    public ResponseEntity<Object> getPlayersByName(@RequestParam String search) {
+        return ResponseEntity.ok(nbaService.getPlayersByName(search));
     }
 
 }

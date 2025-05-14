@@ -52,4 +52,14 @@ public class NbaService {
                 .block();
     }
 
+    public Object getPlayersByName(String search) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/players")
+                        .queryParam("search", search)
+                        .build())
+                .retrieve()
+                .bodyToMono(Object.class)
+                .block();
+    }
 }
