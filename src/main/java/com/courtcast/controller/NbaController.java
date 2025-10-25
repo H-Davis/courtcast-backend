@@ -1,7 +1,6 @@
 package com.courtcast.controller;
 
 import com.courtcast.service.NbaService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,14 @@ public class NbaController {
         this.nbaService = nbaService;
     }
 
-    @GetMapping("/games")
+    @GetMapping("/games/date")
     public ResponseEntity<?> getGamesByDate(@RequestParam String date) {
         return ResponseEntity.ok(nbaService.getGamesByDate(date));
+    }
+
+    @GetMapping("/games/team")
+    public ResponseEntity<?> getGamesByTeam(@RequestParam String season, @RequestParam String team) {
+        return ResponseEntity.ok(nbaService.getGamesByTeam(season, team));
     }
 
     @GetMapping("/players/statistics")
@@ -29,9 +33,31 @@ public class NbaController {
         return ResponseEntity.ok(stats);
     }
 
-    @GetMapping("/players")
+    @GetMapping("/players/search")
     public ResponseEntity<Object> getPlayersByName(@RequestParam String search) {
         return ResponseEntity.ok(nbaService.getPlayersByName(search));
+    }
+
+    @GetMapping("/players/team")
+    public ResponseEntity<Object> getPlayersByTeamId(
+            @RequestParam String team,
+            @RequestParam String season) {
+        return ResponseEntity.ok(nbaService.getPlayersByTeamId(team, season));
+    }
+
+    @GetMapping("/teams")
+    public ResponseEntity<Object> getTeamsById(@RequestParam String id) {
+        return ResponseEntity.ok(nbaService.getTeamById(id));
+    }
+
+    @GetMapping("/standings/conference")
+    public ResponseEntity<Object> getStandingsByConference(@RequestParam String league, @RequestParam String season, @RequestParam String conference) {
+        return ResponseEntity.ok(nbaService.getStandingsByConference(league, season, conference));
+    }
+
+    @GetMapping("/standings/division")
+    public ResponseEntity<Object> getStandingsByDivision(@RequestParam String league, @RequestParam String season, @RequestParam String division) {
+        return ResponseEntity.ok(nbaService.getStandingsByDivision(league, season, division));
     }
 
 }
